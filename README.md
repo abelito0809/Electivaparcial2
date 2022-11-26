@@ -46,7 +46,7 @@ localhost
 ```
 Se visualizará la siguiente página por defecto de Apache
 
-![PruebaApache](/Instalación-del-servidor-web-apache/pruebaInstApache.PNG)
+![PruebaApache](Instalacion-del-servidor-web-apache/pruebaInstApache.PNG)
 
 
 ### 2. Activación de módulos
