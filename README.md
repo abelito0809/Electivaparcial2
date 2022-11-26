@@ -5,7 +5,12 @@
 
 >Usaremos dos dominios mediante el archivo hosts: centro.intranet y departamentos.centro.intranet. El primero servirá el contenido mediante wordpress y el segundo una aplicación en python.
 
+Primer paso. Desde el terminal de Linux de la máquina virtual, ejecutar los siguientes comandos:
 
+'''bash
+sudo apt update
+sudo apt install apache2
+'''
 
 ### 2. Activación de módulos
 
