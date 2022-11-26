@@ -7,10 +7,10 @@
 
 Primer paso. Desde el terminal de Linux de la máquina virtual, ejecutar los siguientes comandos:
 
-'''bash
+``` bash
 sudo apt update
 sudo apt install apache2
-'''
+```
 
 ### 2. Activación de módulos
 
