@@ -46,8 +46,26 @@ localhost
 ```
 Se visualizará la siguiente página por defecto de Apache
 
-![PruebaApache](Instalacion-del-servidor-web-apache/pruebaInstApache.PNG)
+![PruebaApache](https://github.com/davip95/Practica-Servidores-Web/blob/2e949fc0b873bfdb965dc88e075a6f8a160e34c5/Instalacion%20del%20servidor%20web%20apache/pruebaInstApache.PNG)
 
+Para añadir los dos nuevos dominios, editamos el archivo *hosts* ubicado en /etc con permisos root:
+
+```
+sudo nano host
+```
+
+Añadiremos las dos siguientes líneas:
+
+```
+127.0.0.1 centro.intranet
+127.0.0.1 departamentos.centro.intranet
+```
+
+Deberá quedar algo similar a esta imagen:
+
+![DominiosHosts]()
+
+A continuación guardaremos los cambios en el archivo.
 
 ### 2. Activación de módulos
 
