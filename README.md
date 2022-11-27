@@ -63,7 +63,7 @@ Añadiremos las dos siguientes líneas:
 
 Deberá quedar algo similar a esta imagen:
 
-![DominiosHosts]()
+![DominiosHosts](https://github.com/davip95/Practica-Servidores-Web/blob/9f4b8089d4b982ae54e858edfd456639b4d67985/Instalacion%20del%20servidor%20web%20apache/dominioshosts.PNG)
 
 A continuación guardaremos los cambios en el archivo.
 
