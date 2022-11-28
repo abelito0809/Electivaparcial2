@@ -85,7 +85,7 @@ sudo mysql
 
 Deberá ver una pantalla parecida a la siguiente:
 
-![MySQL]()
+![MySQL](https://github.com/davip95/Practica-Servidores-Web/blob/50e46e705852a722d155149d11bd9a98c61a0eef/Instalacion%20del%20servidor%20web%20apache/mysql.PNG)
 
 Para salir de la consola de MySQL, escriba lo siguiente:
 
@@ -111,7 +111,7 @@ php -v
 
 Le tendrá que aparecer una pantalla con información similar a la siguiente:
 
-![PHP]()
+![PHP](https://github.com/davip95/Practica-Servidores-Web/blob/50e46e705852a722d155149d11bd9a98c61a0eef/Instalacion%20del%20servidor%20web%20apache/php.PNG)
 
 ### 3. WordPress
 
@@ -208,7 +208,7 @@ Para permitir archivos .htaccess, debemos configurar la directiva AllowOverride 
 </Directory>
 ```
 
-![ConfigWordPress]()
+![ConfigWordPress](https://github.com/davip95/Practica-Servidores-Web/blob/50e46e705852a722d155149d11bd9a98c61a0eef/Instalacion%20del%20servidor%20web%20apache/configWordpress.PNG)
 
 Cuando termine, guarde y cierre el archivo. 
 
@@ -226,7 +226,7 @@ sudo apache2ctl configtest
 
 Puede recibir un resultado como el siguiente:
 
-![ConfigWordPress2]()
+![ConfigWordPress2](https://github.com/davip95/Practica-Servidores-Web/blob/50e46e705852a722d155149d11bd9a98c61a0eef/Instalacion%20del%20servidor%20web%20apache/configWordpress2.PNG)
 
 En tanto el resultado contenga Sintaxis OK, podrá continuar.
 
@@ -313,7 +313,7 @@ curl -s https://api.wordpress.org/secret-key/1.1/salt/
 ```
 Obtendrá valores únicos que se parecen al resultado del bloque siguiente.
 
-![configWordpress3]()
+![configWordpress3](https://github.com/davip95/Practica-Servidores-Web/blob/50e46e705852a722d155149d11bd9a98c61a0eef/Instalacion%20del%20servidor%20web%20apache/configWP3.PNG)
 
 **Advertencia: Debe solicitar valores únicos cada vez. NO copie los siguientes valores.**
 
@@ -326,7 +326,7 @@ sudo nano /var/www/wordpress/wp-config.php
 ```
 Busque la sección que contiene los valores de ejemplo para esos ajustes. Donde pone *'put your unique phrase here');*, elimine esas líneas y pegue los valores que copió de la línea de comandos anteriores:
 
-![configWordpress4]()
+![configWordpress4](https://github.com/davip95/Practica-Servidores-Web/blob/50e46e705852a722d155149d11bd9a98c61a0eef/Instalacion%20del%20servidor%20web%20apache/configWP4.PNG)
 
 A continuación, vamos a modificar algunos de los ajustes de conexión de la base de datos al principio del archivo. Debe ajustar el nombre de la base de datos, su usuario y la contraseña asociada que configuramos dentro de MySQL.
 
@@ -361,16 +361,35 @@ Guarde y cierre el archivo cuando termine.
 
 #### Completar la instalación a través de la interfaz web
 
+Como paso previo, asigno el dominio *centro.intranet* al directorio de WordPress. Para ello, modifico el archivo de configuración de WordPress en el directorio *sites-available* de Apache (*wordpress.conf*) con  nano:
+
+```bash
+sudo nano /etc/apache2/sites-available/wordpress.conf
+```
+
+![ConfigWP5]()
+
 Ahora que la configuración del servidor está completa, podemos finalizar la instalación a través de la interfaz web.
 
-En su navegador web, vaya al nombre de dominio o a la dirección IP pública de su servidor:
+En su navegador web, vaya al nombre de dominio o a la dirección IP pública de su servidor. En mi caso:
 
 ```
-https://127.0.0.1
+https://10.0.2.15
 ```
 
 Seleccione el idioma que desee usar:
 
+![Idioma]()
+
+A continuación, accederá a la página principal de configuración.
+
+Seleccione un nombre para su sitio WordPress y seleccione un nombre de usuario. Se recomienda elegir algo único y evitar nombres de usuario comunes como “admin” por motivos de seguridad. De forma automática, se generará una contraseña segura. Guárdela o seleccione una contraseña segura alternativa.
+
+Introduzca su dirección de correo electrónico y defina si quiere que los motores de búsqueda no indexen su sitio:
+
+![WPRegistro]()
+
+Cuando haga clic para seguir, irá a una página que le pide que inicie sesión. Tras iniciar sesión, accederá al panel de administración de WordPress.
 
 ### 4. Activación de "wsgi"
 
