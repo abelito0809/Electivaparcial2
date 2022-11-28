@@ -367,7 +367,7 @@ Como paso previo, asigno el dominio *centro.intranet* al directorio de WordPress
 sudo nano /etc/apache2/sites-available/wordpress.conf
 ```
 
-![ConfigWP5]()
+![ConfigWP5](https://github.com/davip95/Practica-Servidores-Web/blob/a82c71022570c0e7c18f94342f7cd8763e0acd30/Instalacion%20del%20servidor%20web%20apache/configWP5.PNG)
 
 Ahora que la configuración del servidor está completa, podemos finalizar la instalación a través de la interfaz web.
 
@@ -379,7 +379,7 @@ https://10.0.2.15
 
 Seleccione el idioma que desee usar:
 
-![Idioma]()
+![Idioma](https://github.com/davip95/Practica-Servidores-Web/blob/a82c71022570c0e7c18f94342f7cd8763e0acd30/Instalacion%20del%20servidor%20web%20apache/idioma.PNG)
 
 A continuación, accederá a la página principal de configuración.
 
@@ -387,7 +387,7 @@ Seleccione un nombre para su sitio WordPress y seleccione un nombre de usuario. 
 
 Introduzca su dirección de correo electrónico y defina si quiere que los motores de búsqueda no indexen su sitio:
 
-![WPRegistro]()
+![WPRegistro](https://github.com/davip95/Practica-Servidores-Web/blob/a82c71022570c0e7c18f94342f7cd8763e0acd30/Instalacion%20del%20servidor%20web%20apache/wpregistro.PNG)
 
 Cuando haga clic para seguir, irá a una página que le pide que inicie sesión. Tras iniciar sesión, accederá al panel de administración de WordPress.
 
