@@ -371,10 +371,10 @@ sudo nano /etc/apache2/sites-available/wordpress.conf
 
 Ahora que la configuración del servidor está completa, podemos finalizar la instalación a través de la interfaz web.
 
-En su navegador web, vaya al nombre de dominio o a la dirección IP pública de su servidor. En mi caso:
+En su navegador web, vaya al nombre de dominio *centro.intranet*
 
 ```
-https://10.0.2.15
+https://centro.intranet
 ```
 
 Seleccione el idioma que desee usar:
@@ -395,19 +395,110 @@ Cuando haga clic para seguir, irá a una página que le pide que inicie sesión.
 
 >Activar el módulo “wsgi” para permitir la ejecución de aplicaciones Python.
 
+#### Instalación de mod_wsgi en Apache
 
+Primero habilitamos *mod_wsgi* en Apache, para lo que bastará con instalar el paquete *libapache2-mod-wsgi*:
+
+```bash
+sudo apt-get install libapache2-mod-wsgi-py3
+```
 
 ### 5. Aplicación Python
 
 >Crea y despliega una pequeña aplicación python para comprobar que funciona correctamente.
 
+#### Crear la aplicación de Python
 
+Luego, crearemos el script para la aplicación Python:
+
+```bash
+sudo nano /var/www/html/application.py
+```
+
+Dicha aplicación sólo se encargará de definir una función, que actúe con cada petición del usuario. Esta función, deberá ser una función WSGI aplicación válida. Esto significa que:
+
+  1. Deberá llamarse *application*
+  2. Deberá recibir dos parámetros: *environ*, del módulo *os*, que provee un diccionario de las peticiones HTTP estándar y otras variables de entorno, y la función *start_response*, de WSGI, encargada de entregar la respuesta HTTP al usuario
+
+```python
+def application(environ, start_response):
+    status = '200 OK'
+    output = b'<p>Bienvenido a mi <b>PythonApp</b>!!!</p>\n'
+    response_headers = [('Content-type', 'text/plain'),
+                        ('Content-Length', str(len(output)))]
+    start_response(status, response_headers)
+    return [output]
+```
+
+Tras crearla, le doy los permisos:
+
+```bash
+sudo chown www-data:www-data /var/www/html/application.py
+sudo chmod 775 /var/www/html/application.py
+```
+
+#### Configurar el VirtualHost
+
+Una variable del *VirtualHost*, será la encargada de redirigir todas las peticiones públicas del usuario, hacia nuestra aplicación. Y la variable que se encargue de esto, será el alias *WSGIScriptAlias*:
+
+```bash
+sudo nano /etc/apache2/sites-available/000-default.conf
+```
+
+Una vez allí, escribimos el contenido del nuevo virtual host:
+
+```bash
+<VirtualHost*:80>
+  ServerName departamentos.centro.intranet
+  ServerAlias www.departamentos.centro.intranet
+  ServerAdmin webmaster@localhost
+  DocumentRoot /var/www/html
+  ErrorLog ${APACHE_LOG_DIR}/error.log
+  CustomLog ${APACHE_LOG_DIR}/access.log combined
+  WSGIScriptAlias /application /var/www/html/application.py
+</VirtualHost>
+```
+
+Una vez configurado nuestro VirtualHost:
+
+  1. Habilitamos el sitio web: **sudo a2ensite 000-default**
+  2. Recargamos Apache: **sudo service apache2 reload**
+  3. Si no lo hicimos en el punto 1 de este tutorial, habilitamos el sitio en nuestro host: **sudo nano /etc/hosts** y allí agregamos la siguiente línea: **127.0.0.1 departamentos.centro.intranet**
+
+A partir de ahora, si abrimos nuestro navegador Web e ingresamos la url http://departamentos.centro.intranet/application veremos la frase: "Bienvenido a mi PythonApp":
+
+![AppPython]()
 
 ### 6. Protección de acceso a la aplicación Python
 
 >Adicionalmente protegeremos el acceso a la aplicación python mediante autenticación.
 
+Para el acceso mediante autenticación, crearemos primero un usuario y una contraseña para probarla:
 
+```bash
+sudo htpasswd -c /etc/apache2/.htpasswd davidpy
+```
+
+Después de ejecutar el comando, nos pedirá la contraseña para el nuevo usuario.
+
+A continuación, accederemos al archivo de configuración y añadiremos una directiva *Directory* para obligar el uso de autenticación.
+
+```bash
+sudo nano /etc/apache2/sites-enabled/000-default.conf
+```
+
+```bash
+<Directory /var/www/html>
+        AuthType Basic
+        AuthName "Secure area - Authentication required"
+        AuthUserFile /etc/apache2/.htpasswd
+        Require valid-user
+</Directory>
+```
+
+Por último, comprobaremos que nos pide la autenticación cuando se inicia la aplicación Python:
+
+![AutPython]()
 
 ### 7. AWStat
 
