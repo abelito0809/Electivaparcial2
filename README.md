@@ -379,7 +379,7 @@ https://centro.intranet
 
 Seleccione el idioma que desee usar:
 
-![Idioma](https://github.com/davip95/Practica-Servidores-Web/blob/a82c71022570c0e7c18f94342f7cd8763e0acd30/Instalacion%20del%20servidor%20web%20apache/idioma.PNG)
+![Idioma](https://github.com/davip95/Practica-Servidores-Web/blob/6c81f8db00759b9a9b97f55abd51f395c6513dcc/Instalacion%20del%20servidor%20web%20apache/idioma.PNG)
 
 A continuación, accederá a la página principal de configuración.
 
