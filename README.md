@@ -467,7 +467,7 @@ Una vez configurado nuestro VirtualHost:
 
 A partir de ahora, si abrimos nuestro navegador Web e ingresamos la url http://departamentos.centro.intranet/application veremos la frase: "Bienvenido a mi PythonApp":
 
-![AppPython]()
+![AppPython](https://github.com/davip95/Practica-Servidores-Web/blob/6a0943c7ac0245803afdfc5bc05b3fb70fe56609/Instalacion%20del%20servidor%20web%20apache/appPython.PNG)
 
 ### 6. Protección de acceso a la aplicación Python
 
@@ -498,7 +498,7 @@ sudo nano /etc/apache2/sites-enabled/000-default.conf
 
 Por último, comprobaremos que nos pide la autenticación cuando se inicia la aplicación Python:
 
-![AutPython]()
+![AutPython](https://github.com/davip95/Practica-Servidores-Web/blob/6a0943c7ac0245803afdfc5bc05b3fb70fe56609/Instalacion%20del%20servidor%20web%20apache/autenticacion.PNG)
 
 ### 7. AWStat
 
