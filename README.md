@@ -585,3 +585,134 @@ Se verá una pantalla similar a esta:
 ### 8. Instalación de segundo servidor y phpmyadmin
 
 >Instala un segundo servidor de tu elección (nginx, lighttpd) bajo el dominio “servidor2.centro.intranet”. Debes configurarlo para que sirva en el puerto 8080 y haz los cambios necesarios para ejecutar php. Instala phpmyadmin.
+
+#### Instalación y configuración de nginx
+
+En esta práctica, instalaremos el servidor *nginx*. 
+
+Dado que esta es nuestra primera interacción con el sistema de empaquetado apt en esta sesión, actualizaremos nuestro índice de paquetes local para que tengamos acceso a las listas de paquetes más recientes. Posteriormente, podemos instalar nginx:
+
+```bash
+sudo apt update
+sudo apt upgrade
+sudo apt install nginx
+```
+
+![nginx]()
+
+A continuación, configuraremos el servidor para que sirva bajo el dominio *servidor2.centro.intranet* desde el puerto 8080. Para ello, modificaremos el archivo de configuración por defecto:
+
+```bash
+sudo nano /etc/nginx/sites-available/default
+```
+Pegue el siguiente bloque de configuración, que es similar al predeterminado, pero actualizado para nuestro nuevo puerto y nombre de dominio, así como para archivo .php:
+
+```bash
+server {
+        listen 8080;
+        listen [::]:8080;
+
+        root /var/www/html;
+        index index.php index.html index.htm index.nginx-debian.html;
+
+        server_name servidor2.centro.intranet;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+        location ~ .php$ {
+          include /etc/nginx/fastcgi_params;
+          fastcgi_pass unix:/run/php/php8.1-fpm.sock;
+          fastcgi_index index.php;
+          fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        }
+}
+```
+
+Puede verificar si hay errores en la sintaxis de su configuración al escribir:
+
+```bash
+sudo nginx -t
+```
+
+Si se detecta algún error, vuelva al archivo de configuración para revisar el contenido antes de continuar.
+
+Reiniciamos Nginx para habilitar sus cambios:
+
+```bash
+sudo systemctl restart nginx
+```
+
+#### Instalación y configuración de phpmyadmin
+
+Para instalar phpMyAdmin, escribimos:
+
+```bash
+sudo apt install phpmyadmin
+```
+
+Escogemos el servidor web Apache2 y damos Enter para que continúe la instalación:
+
+![phpmyadmin]()
+
+Se abrirá el siguiente mensaje, escogemos Sí y damos a la tecla Enter:
+
+![phpmyadmin2]()
+
+Inmediatamente se abrirá una nueva pantalla, ingresamos el password para nuestro phpMyAdmin y en la siguiente ventana confirmamos el password y damos a la tecla Enter:
+
+![phpmyadmin3]()
+
+**Atención: Al instalar anteriormente MySQL, es posible que haya decidido habilitar el complemento Validate Password. En el momento en que se redactó este documento, habilitar este componente generará un error cuando intente establecer una contraseña para el usuario phpmyadmin.**
+
+Para resolver esto, seleccione la opción abort a fin de detener el proceso de instalación. Luego, abra su línea de comandos de MySQL:
+
+```bash
+sudo mysql
+```
+
+O bien, si habilitó la autenticación de contraseña para el root user de MySQL, ejecute este comando y luego ingrese su contraseña cuando se le solicite:
+
+```bash
+mysql -u root -p
+```
+
+Desde la línea de comandos, ejecute el siguiente comando para deshabilitar el componente Validate Password. Tenga en cuenta que con esto en realidad no se desinstalará, sino solo se evitará que el componente sea cargado en su servidor MySQL:
+
+```SQL
+UNINSTALL COMPONENT "file://component_validate_password";
+```
+
+Después de esto, puede cerrar el cliente MySQL:
+
+```sql
+exit
+```
+
+Luego, vuelva a instalar el paquete phpmyadmin, que funcionará según lo previsto:
+
+```bash
+sudo apt install phpmyadmin
+```
+
+Una vez que se completa el comando *apt install*, phpMyAdmin se instalará por completo. Sin embargo, para que el servidor web de Nginx encuentre y sirva los archivos phpMyAdmin correctamente, deberá crear un enlace simbólico desde los archivos de instalación hasta el directorio raíz del documento de Nginx (en el caso de esta práctica, dicho directorio es */var/www/html/*):
+
+```bash
+sudo ln -s /usr/share/phpmyadmin /var/www/html/phpmyadmin
+```
+
+Su instalación de phpMyAdmin ya está operativa. Antes de comprobarlo, reiniciaremos Nginx y PHP:
+
+```bash
+sudo systemctl restart nginx php8.1-fpm 
+```
+
+Para acceder a la interfaz, vaya al nombre de dominio de su servidor o dirección IP pública seguido de /phpmyadmin en su navegador web (en el caso de esta práctica el dominio y puerto configurados para el servidor son *servidor2.centro.intranet:8080*):
+
+```
+https://servidor2.centro.intranet:8080/phpmyadmin
+```
+
+![phpmyadmin4]()
+
+Como se mencionó anteriormente, phpMyAdmin maneja la autenticación usando las credenciales de MySQL. Esto significa que para iniciar sesión en phpMyAdmin, usaremos el mismo nombre de usuario y contraseña que normalmente usaríamos para conectarnos a la base de datos usando la línea de comando o con una API.
