@@ -562,7 +562,7 @@ sudo /usr/lib/cgi-bin/awstats.pl -config=test.com -update
 
 La salida se verá algo así:
 
-![AWStats]()
+![AWStats](https://github.com/davip95/Practica-Servidores-Web/blob/6495333a868fb85d6c9c50260b145a9c0fbc01b6/Capturas/awstats.PNG)
 
 #### Configuración de Apache para AWStats
 
@@ -580,7 +580,7 @@ Ahora podemos acceder a las AWStats visitando la url *http://127.0.0.1/cgi-bin/a
 
 Se verá una pantalla similar a esta:
 
-![AWStats2]()
+![AWStats2](https://github.com/davip95/Practica-Servidores-Web/blob/6495333a868fb85d6c9c50260b145a9c0fbc01b6/Capturas/awstats2.PNG)
 
 ### 8. Instalación de segundo servidor y phpmyadmin
 
