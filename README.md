@@ -598,7 +598,7 @@ sudo apt upgrade
 sudo apt install nginx
 ```
 
-![nginx]()
+![nginx](https://github.com/davip95/Practica-Servidores-Web/blob/bc29c9bf5a2235523e7533a77bf25e7bd9630e88/Capturas/nginx.PNG)
 
 A continuación, configuraremos el servidor para que sirva bajo el dominio *servidor2.centro.intranet* desde el puerto 8080. Para ello, modificaremos el archivo de configuración por defecto:
 
@@ -653,15 +653,15 @@ sudo apt install phpmyadmin
 
 Escogemos el servidor web Apache2 y damos Enter para que continúe la instalación:
 
-![phpmyadmin]()
+![phpmyadmin](https://github.com/davip95/Practica-Servidores-Web/blob/bc29c9bf5a2235523e7533a77bf25e7bd9630e88/Capturas/phpmyadmin.PNG)
 
 Se abrirá el siguiente mensaje, escogemos Sí y damos a la tecla Enter:
 
-![phpmyadmin2]()
+![phpmyadmin2](https://github.com/davip95/Practica-Servidores-Web/blob/bc29c9bf5a2235523e7533a77bf25e7bd9630e88/Capturas/phpmyadmin2.PNG)
 
 Inmediatamente se abrirá una nueva pantalla, ingresamos el password para nuestro phpMyAdmin y en la siguiente ventana confirmamos el password y damos a la tecla Enter:
 
-![phpmyadmin3]()
+![phpmyadmin3](https://github.com/davip95/Practica-Servidores-Web/blob/bc29c9bf5a2235523e7533a77bf25e7bd9630e88/Capturas/phpmyadmin3.PNG)
 
 **Atención: Al instalar anteriormente MySQL, es posible que haya decidido habilitar el complemento Validate Password. En el momento en que se redactó este documento, habilitar este componente generará un error cuando intente establecer una contraseña para el usuario phpmyadmin.**
 
@@ -713,6 +713,6 @@ Para acceder a la interfaz, vaya al nombre de dominio de su servidor o direcció
 https://servidor2.centro.intranet:8080/phpmyadmin
 ```
 
-![phpmyadmin4]()
+![phpmyadmin4](https://github.com/davip95/Practica-Servidores-Web/blob/bc29c9bf5a2235523e7533a77bf25e7bd9630e88/Capturas/phpmyadmin4.PNG)
 
 Como se mencionó anteriormente, phpMyAdmin maneja la autenticación usando las credenciales de MySQL. Esto significa que para iniciar sesión en phpMyAdmin, usaremos el mismo nombre de usuario y contraseña que normalmente usaríamos para conectarnos a la base de datos usando la línea de comando o con una API.
