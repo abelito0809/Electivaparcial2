@@ -500,11 +500,87 @@ Por último, comprobaremos que nos pide la autenticación cuando se inicia la ap
 
 ![AutPython](https://github.com/davip95/Practica-Servidores-Web/blob/6a0943c7ac0245803afdfc5bc05b3fb70fe56609/Instalacion%20del%20servidor%20web%20apache/autenticacion.PNG)
 
-### 7. AWStat
+### 7. AWStats
 
->Instala y configura awstat.
+>Instala y configura awstats.
 
+#### Instalación del paquete AWStats
 
+Por defecto, el paquete AWStats está disponible en el repositorio Ubuntu. Puede instalarlo ejecutándolo:
+
+```bash
+sudo apt-get install awstats
+```
+
+A continuación, deberá habilitar el módulo CGI en Apache. Puede hacerlo corriendo:
+
+```bash
+sudo a2enmod cgi
+```
+
+Ahora, reinicie Apache para reflejar los cambios.
+
+```bash
+sudo service apache2 restart
+```
+
+#### Configuración de AWStats
+
+Debemos crear un archivo de configuración para cada dominio o sitio web del que deseemos ver estadísticas. En este ejemplo crearemos un archivo de configuración para *test.com*.
+
+Puede hacer esto duplicando el archivo de configuración por defecto de AWStats a uno con su nombre de dominio:
+
+```bash
+sudo cp /etc/awstats/awstats.conf /etc/awstats/awstats.test.com.conf
+```
+
+Ahora, necesitamos hacer algunos cambios en el archivo de configuración:
+
+```bash
+sudo nano /etc/awstats/awstats.test.com.conf
+```
+
+Actualizaremos la configuración que se muestra a continuación:
+
+```bash
+# Cambiar al archivo de registro de Apache, por defecto es /var/log/apache2/access.log
+LogFile="/var/log/apache2/access.log"
+# Cambiar el nombre de dominio del sitio web
+SiteDomain=test.com
+HostAliases=test.com localhost 127.0.0.1
+# Cuando este parámetro se establece en 1, AWStats añade un botón en la página del informe para permitir «actualizar» las estadísticas desde un navegador web.
+AllowToUpdateStatsFromBrowser=1
+```
+
+Guardaremos y cerraremos el archivo.
+
+Después de estos cambios, necesitamos construir las estadísticas iniciales que se generarán a partir de los registros actuales en nuestro servidor. Podemos hacerlo utilizando:
+
+```bash
+sudo /usr/lib/cgi-bin/awstats.pl -config=test.com -update
+```
+
+La salida se verá algo así:
+
+![AWStats]()
+
+#### Configuración de Apache para AWStats
+
+A continuación, debemos configurar Apache2 para que muestre estas estadísticas. Ahora copiaremos el contenido de la carpeta *cgi-bin* en el directorio raíz del documento por defecto de nuestra instalación de Apache. Por defecto se encuentra en la carpeta */usr/lib/cgi-bin*:
+
+```bash
+sudo cp -r /usr/lib/cgi-bin /var/www/html/
+sudo chown www-data:www-data /var/www/html/cgi-bin/
+sudo chmod -R 755 /var/www/html/cgi-bin/
+```
+
+#### Prueba AWStats
+
+Ahora podemos acceder a las AWStats visitando la url *http://127.0.0.1/cgi-bin/awstats.pl?config=test.com*
+
+Se verá una pantalla similar a esta:
+
+![AWStats2]()
 
 ### 8. Instalación de segundo servidor y phpmyadmin
 
